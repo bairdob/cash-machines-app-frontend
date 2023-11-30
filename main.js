@@ -13,7 +13,6 @@ import {getTopLeft, getWidth} from 'ol/extent.js';
 import Icon from 'ol/style/Icon';
 import Point from 'ol/geom/Point.js';
 
- 
 
 const iconPath = 'data/atm.png';
 const image = new Icon({
@@ -86,7 +85,7 @@ const tileLayer =  new TileLayer({
         attributions:
           'Barbie Land',
         url: 'http://127.0.0.1:8000/wmts',
-        layer: '/Users/bair/cash-machines-app/static',
+        layer: '/Users/bair/cash-machines-app/static/barbie_world_map_moscow.mbtiles',
         matrixSet: 'GoogleMapsCompatible',
         format: 'image/png',
         projection: projection,
@@ -97,9 +96,14 @@ const tileLayer =  new TileLayer({
         }),
         style: 'default',
         wrapX: true,
-      })
+
+      }),
+      opacity: 0.7
   });
 
+const osmLayer = new TileLayer({
+  source: new OSM(),
+});
 
 const atms_geojson = 'http://127.0.0.1:8000/api/v1/atm_geojson';
 const route_geojson = 'http://127.0.0.1:8000/api/v1/route';
@@ -151,21 +155,29 @@ async function main() {
     style: styleFunction,
   });
 
-
-
   const map = new Map({
     layers: [
+      osmLayer,
       tileLayer,
       atmsLayer,  
       routeLayer,
     ],
     target: 'map',
     view: new View({
-      center: [0, 0],
-      zoom: 1,
-      maxZoom: 6,
+      center: [4189113,7508825],
+      zoom: 10,
+      maxZoom: 20,
     }),
   });
+
+  const routeContainer = document.getElementById('route');
+  if (routeContainer) {
+    // Convert JSON data to a formatted string for better readability
+    const routeJsonString = JSON.stringify(route_jsonData, null, 2);
+    
+    // Update the content of the <code> element inside the <pre> element
+    routeContainer.textContent = routeJsonString;
+  };
 
 }
 main();

@@ -2,17 +2,25 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8">
-    <title>GeoJSON</title>
+    <title>BarbieLand</title>
     <link rel="stylesheet" href="node_modules/ol/ol.css">
     <style>
+      body {
+        display: flex;
+      }
       .map {
-        width: 100%;
+        flex: 2;
         height: 800px;
+      }
+      .route-container {
+        flex: 1;
+        overflow: scroll;
       }
     </style>
   </head>
   <body>
     <div id="map" class="map"></div>
+    <pre class="route-container"><code id="route"></code></pre>
     <script type="module" src="main.js"></script>
   </body>
 </html>
