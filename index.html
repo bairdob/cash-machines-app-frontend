@@ -12,15 +12,24 @@
         flex: 2;
         height: 800px;
       }
-      .route-container {
-        flex: 1;
-        overflow: scroll;
+      table {
+        border-collapse: collapse;
+        width: 30%;
+      }
+
+      th, td {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+      }
+
+      th {
+        background-color: #f2f2f2;
       }
     </style>
   </head>
   <body>
     <div id="map" class="map"></div>
-    <pre class="route-container"><code id="route"></code></pre>
     <script type="module" src="main.js"></script>
   </body>
 </html>

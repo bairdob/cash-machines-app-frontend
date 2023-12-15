@@ -165,19 +165,39 @@ async function main() {
     target: 'map',
     view: new View({
       center: [4189113,7508825],
-      zoom: 10,
+      zoom: 12,
       maxZoom: 20,
     }),
   });
 
-  const routeContainer = document.getElementById('route');
-  if (routeContainer) {
-    // Convert JSON data to a formatted string for better readability
-    const routeJsonString = JSON.stringify(route_jsonData, null, 2);
+
+  function createTable(routeList) {
+    const table = document.createElement('table');
+    const headerRow = table.insertRow(0);
+    const headerCell1 = headerRow.insertCell(0);
+    headerCell1.textContent = 'id';
+
+    const headerCell2 = headerRow.insertCell(1);
+    headerCell2.textContent = 'address';
     
-    // Update the content of the <code> element inside the <pre> element
-    routeContainer.textContent = routeJsonString;
-  };
+    for (const point of routeList) {
+      const pointNumber = Object.keys(point)[0];
+      const pointDescription = point[pointNumber];
+
+      const row = table.insertRow();
+      const cell1 = row.insertCell(0);
+      const cell2 = row.insertCell(1);
+
+      cell1.textContent = `${pointNumber}`;
+      cell2.textContent = pointDescription;
+    }
+
+    return table;
+  }
+
+  const routeList = route_jsonData.features[0].properties.route_list;
+  const table = createTable(routeList);
+  document.body.appendChild(table);
 
 }
 main();
